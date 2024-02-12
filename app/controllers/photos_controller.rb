@@ -1,4 +1,15 @@
 class PhotosController < ApplicationController
+  def commentate
+    a_new_comment = Comment.new
+    the_photo_id=params.fetch("input_photo_id")
+    a_new_comment.photo_id=the_photo_id
+    a_new_comment.body=params.fetch("input_comment")
+    a_new_comment.author_id=params.fetch("input_author_id")
+    a_new_comment.save
+    next_url = "/photos/" + the_photo_id.to_s
+    redirect_to(next_url)
+  end
+
   def create
     #  Parameters: {"input_image"=>"https://oyster.ignimgs.com/mediawiki/apis.ign.com/starcraft-2/d/db/TychusFindlay_SC2-1.jpg", "input_caption"=>"lolol", "input_owner_id"=>"117"}
 
@@ -20,12 +31,12 @@ class PhotosController < ApplicationController
     input_image = params.fetch("input_image")
     input_caption = params.fetch("input_caption")
 
-    the_photo.image=input_image
-    the_photo.caption=input_caption
+    the_photo.image = input_image
+    the_photo.caption = input_caption
     the_photo.save
 
     #render({ :template => "photo_templates/update" })
-    next_url= "/photos/" + the_photo.id.to_s
+    next_url = "/photos/" + the_photo.id.to_s
     redirect_to(next_url)
   end
 
