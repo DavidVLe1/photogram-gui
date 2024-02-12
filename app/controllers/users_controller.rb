@@ -1,4 +1,11 @@
 class UsersController < ApplicationController
+  def create
+    #Parameters: {"query_username"=>"batman"}
+    new_user=User.new
+    new_user.username=params.fetch("query_username")
+    new_user.save
+    redirect_to("/users")
+  end
   def index
     matching_users = User.all
     @list_of_users = matching_users.order({ :username => :asc })
