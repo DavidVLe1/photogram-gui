@@ -4,7 +4,22 @@ class UsersController < ApplicationController
     new_user=User.new
     new_user.username=params.fetch("query_username")
     new_user.save
-    redirect_to("/users")
+    next_url="/users/"+new_user.username
+    redirect_to(next_url)
+  end
+  def update
+    #Parameters: {"query_username"=>"auguston"}
+    the_username=params.fetch("toast_username")
+    matching_users=User.where(:username=>the_username)
+    the_user=matching_users.at(0)
+
+    input_username = params.fetch("query_username")
+
+    the_user.username= input_username
+    the_user.save
+
+    next_url="/users/"+the_user.username.to_s
+    redirect_to(next_url)
   end
   def index
     matching_users = User.all

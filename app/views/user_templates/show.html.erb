@@ -2,10 +2,16 @@
 
 <dl>
   <dt>ID</dt>
-  <dd>@the_user.id</dd>
+  <dd><%=@the_user.id%></dd>
 
   <dt>Edit User</dt>
-  <dd>Form goes here</dd>
+  <dd>
+    <form action="/update_user/<%=@the_user.username%>" method="post">
+      <label for="browser_username">Username</label>
+      <input id="browser_username" name="query_username" type="text" value="<%=@the_user.username%>">
+      <button>Update user</button>
+    </form>
+  </dd>
 
 </dl>
 
@@ -24,8 +30,8 @@
     <tr>
       <td><img src="<%=a_photo.image%>"></td>
       <td>
-      <%#=User.where({:id=>a_photo.owner_id}).at(0).username%>
-      <%=a_photo.poster.username%>
+        <%#=User.where({:id=>a_photo.owner_id}).at(0).username%>
+        <%=a_photo.poster.username%>
       </td>
       <td><%=a_photo.caption%></td>
       <td><%=a_photo.created_at%></td>
