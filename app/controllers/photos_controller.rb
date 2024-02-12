@@ -8,7 +8,25 @@ class PhotosController < ApplicationController
     a_new_photo.owner_id = params.fetch("input_owner_id")
     a_new_photo.save
     #render({ :template => "photo_templates/create" })
-    redirect_to("/photos/"+a_new_photo.id.to_s)
+    redirect_to("/photos/" + a_new_photo.id.to_s)
+  end
+
+  def update
+    #Parameters: {"input_image"=>"https://oyster.ignimgs.com/mediawiki/apis.ign.com/starcraft-2/d/db/TychusFindlay_SC2-1.jpg", "input_caption"=>"Its about high time", "toast_id"=>"952"}
+    the_id = params.fetch("toast_id")
+    matching_photos = Photo.where(:id => the_id)
+    the_photo = matching_photos.at(0)
+
+    input_image = params.fetch("input_image")
+    input_caption = params.fetch("input_caption")
+
+    the_photo.image=input_image
+    the_photo.caption=input_caption
+    the_photo.save
+
+    #render({ :template => "photo_templates/update" })
+    next_url= "/photos/" + the_photo.id.to_s
+    redirect_to(next_url)
   end
 
   def index
